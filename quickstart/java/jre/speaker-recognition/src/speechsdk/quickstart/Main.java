@@ -12,6 +12,8 @@ import com.microsoft.cognitiveservices.speech.*;
 import com.microsoft.cognitiveservices.speech.audio.AudioConfig;
 import com.microsoft.cognitiveservices.speech.speaker.*;
 
+import static com.wl4g.infra.common.lang.EnvironmentUtil.getStringProperty;
+
 /**
  * Quickstart: verify and identify speakers using the Speech SDK for Java.
  */
@@ -85,9 +87,9 @@ public class Main {
     // before finally deleting them
     public static void speakerIdentification() {
         // Replace below with your own subscription key
-        String speechSubscriptionKey = "YourSubscriptionKey";
+        String speechSubscriptionKey = getStringProperty("SPEECH_SUBSCRIPTION_KEY");
         // Replace below with your own service region (e.g., "westus").
-        String serviceRegion = "YourServiceRegion";
+        String serviceRegion = "westus";
         String audioFile1 = "TalkForAFewSeconds16.wav";
         String audioFile2 = "TalkForAFewSeconds16.wav";
 
@@ -98,7 +100,6 @@ public class Main {
 
             assert(speechConfig != null);
             assert(client != null);
-            int exitCode = 1;
             try (VoiceProfile profile1 = client.createProfileAsync(VoiceProfileType.TextIndependentIdentification, "en-us").get();
                 VoiceProfile profile2 = client.createProfileAsync(VoiceProfileType.TextIndependentIdentification, "en-us").get()) {
                 assert(profile1 != null);
@@ -120,7 +121,6 @@ public class Main {
             }
         } catch (Exception ex) {
             System.out.println("Unexpected exception: " + ex.getMessage());
-
             assert(false);
             System.exit(1);
         }
@@ -130,9 +130,9 @@ public class Main {
     // before finally deleting the profile
     public static void speakerVerification() {
         // Replace below with your own subscription key
-        String speechSubscriptionKey = "YourSubscriptionKey";
+        String speechSubscriptionKey = getStringProperty("SPEECH_SUBSCRIPTION_KEY");
         // Replace below with your own service region (e.g., "westus").
-        String serviceRegion = "YourServiceRegion";
+        String serviceRegion = "westus";
         String audioFile = "TalkForAFewSeconds16.wav";
 
         // Creates an instance of a voice profile client using speech configuration with specified
